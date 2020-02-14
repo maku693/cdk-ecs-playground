@@ -1,23 +1,15 @@
-import { expect as expectCDK, haveResource } from "@aws-cdk/assert";
+import { expect, haveResourceLike } from "@aws-cdk/assert";
 import * as cdk from "@aws-cdk/core";
 import CdkEcsPlayground = require("../lib/cdk-ecs-playground-stack");
 
-test("SQS Queue Created", () => {
+test("ECS Service Created", () => {
   const app = new cdk.App();
   // WHEN
   const stack = new CdkEcsPlayground.CdkEcsPlaygroundStack(app, "MyTestStack");
   // THEN
-  expectCDK(stack).to(
-    haveResource("AWS::SQS::Queue", {
-      VisibilityTimeout: 300
+  expect(stack).to(
+    haveResourceLike("AWS::ECS::TaskDefinition", {
+      ContainerDefinitions: [{ Image: "nginx:alpine" }]
     })
   );
-});
-
-test("SNS Topic Created", () => {
-  const app = new cdk.App();
-  // WHEN
-  const stack = new CdkEcsPlayground.CdkEcsPlaygroundStack(app, "MyTestStack");
-  // THEN
-  expectCDK(stack).to(haveResource("AWS::SNS::Topic"));
 });
