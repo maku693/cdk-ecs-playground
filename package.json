@@ -2,9 +2,6 @@
   "name": "cdk-ecs-playground",
   "private": true,
   "version": "0.1.0",
-  "bin": {
-    "cdk-ecs-playground": "bin/cdk-ecs-playground.js"
-  },
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
