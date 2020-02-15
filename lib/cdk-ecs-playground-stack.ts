@@ -9,13 +9,24 @@ export class CdkEcsPlaygroundStack extends cdk.Stack {
 
     // const vpc = ec2.Vpc.fromLookup(this, "VPC", { ... });
     // const cluster = new ecs.Cluster(this, "Cluser", { vpc });
-    new ecsPatterns.ApplicationLoadBalancedFargateService(this, "Service", {
-      // cluster,
-      taskImageOptions: {
-        image: ecs.ContainerImage.fromRegistry("nginx:alpine")
+    const loadBalancedService = new ecsPatterns.ApplicationLoadBalancedFargateService(
+      this,
+      "Service",
+      {
+        // cluster,
+        taskImageOptions: {
+          image: ecs.ContainerImage.fromRegistry("nginx:alpine")
+        }
+        // publicLoadBalancer: true,
+        // certificate: ...
       }
-      // publicLoadBalancer: true,
-      // certificate: ...
-    });
+    );
+
+    // Set target group deregistration delay.
+    // cf. https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#target-group-attributes
+    loadBalancedService.targetGroup.setAttribute(
+      "deregistration_delay.timeout_seconds",
+      "120"
+    );
   }
 }
