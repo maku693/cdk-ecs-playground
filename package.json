@@ -31,8 +31,10 @@
     "typescript": "3.7.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-ecs": "1.24.0",
     "@aws-cdk/aws-ecs-patterns": "1.24.0",
+    "@aws-cdk/aws-ecs": "1.24.0",
+    "@aws-cdk/aws-elasticloadbalancingv2": "1.24.0",
+    "@aws-cdk/aws-route53": "1.24.0",
     "@aws-cdk/core": "1.24.0"
   }
 }
